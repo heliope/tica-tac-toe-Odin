@@ -15,14 +15,14 @@
 
 #container {
     display: grid;
-    grid-template-rows: 0.25fr 3fr;
+    grid-template-rows: 0.6fr 3fr;
     width: 100vw;
     height: 100vh;
 }
 
 #formWelcome {
     position: absolute;
-    top: 20%;
+    top: 100px;
     left: 50%;
     transform: translate(-50%,50%);
 }
@@ -59,12 +59,27 @@
     outline: none;
 }
 
+#formWelcome form fieldset div#userDetails div.userDetailsPlayer1Total {
+    margin-bottom: 10px;
+}
+
 #formWelcome form fieldset div#userDetails div.userDetailsPlayer1 {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+}
+
+#formWelcome form fieldset div#userDetails div.userDetailsPlayer1 div.userDetailsPlayer1Aux {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
 }
 
 #formWelcome form fieldset div#userDetails div.userDetailsPlayer2 {
     margin-bottom: 10px;
+}
+
+#formWelcome form fieldset div#userDetails div.userDetailsPlayer2 div.userDetailsPlayer2Aux {
+    display: flex;
+    flex-direction: row;
 }
 
 #formWelcome form fieldset div#userDetailsSubmit button:hover {
@@ -77,6 +92,8 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #formWelcome form fieldset div#userDetailsSubmit button {
@@ -86,8 +103,8 @@
     border-bottom: 2px solid var(--playerOneColor);
     color: var(--textColor);
     font-weight: bolder;
-    height: min(7vh, 40px);
-    width: min(12vw, 120px);
+    height: min(10vh, 50px);
+    width: min(15vw, 120px);
 }
 
 #formWelcome form fieldset div#userDetailsSubmit button#enter {
@@ -142,7 +159,7 @@
     font-weight: bolder;
 }
 
-
+/*
 #gameBoard {
     display: grid;
     grid-template-columns: 0.5fr 0.5fr 0.5fr;

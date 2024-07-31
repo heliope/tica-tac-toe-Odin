@@ -8,6 +8,40 @@
     entryForm.classList.remove("none");
 })();
 
+//CRIAÇÃO E VALIDAÇÃO DOS JOGADORES
+function checkPlayerName( regexInput, errorMessage) {
+
+    //CLOSURE GUARDA ASM VARIAVEIS PRIVADAS QUE PODEM SER REUTILIZADAS
+    const inputUserCheck = (e) => {
+        // VALIDA SE O INPUT VAI DE ENCONTRO COM O REGEX ASSOCIADO
+        const inputUserRegex = regexInput.test(e.target.value);
+
+        if (inputUserRegex !=null || !inputUserRegex) {
+            errorMessage.textContent = "Invalid characters! Please try again"
+        }
+
+        else {
+            errorMessage.textContent = "Correct names! Good Luck!"
+        } 
+    }
+    return inputUserCheck; 
+}
+
+function initCheckPlayerName () {
+
+    // VALIDAÇÃO DO INPUT
+    const regexInput = /^[\p{L}\p{N}]{3,15}$/u; // \p{L} qualquer letra incluíndo as acentuadas, \p{N}, qualquer numero, /u flag para unicode
+    const input = document.getElementById("namePlayer1");
+    const errorMessage = document.getElementById("error-message");
+
+    // FACTORY FUNCTION - INSTANCIAR OBJETO
+    const inputUserCheck = checkPlayerName(regexInput, errorMessage);
+
+    //ADICIONA UM EVENTO LISTENER NO CAMPO DE ENTRADA
+    input.addEventListener("keyup",inputUserCheck);
+}
+
+document.addEventListener("DOMContentLoaded", initCheckPlayerName);
 
 function createPlayer(name, mark) {
 
@@ -24,32 +58,10 @@ function createPlayer(name, mark) {
     return { getName, getMark, setName, setMark}
 }
 
-function checkPlayerName( input, regexInput) {
-
-    // RETORNA UM ADD EVENT LISTENER
-    return function (e) {
-        // VALIDA SE O INPUT VAI DE ENCONTRO COM O REGEX ASSOCIADO
-        const regexInput = e.target.value.match(input);
-
-        
-    }
-    
-    // VARIVAEIS PRIVADAS
-    let _input = input
-    
-    // VALIDAÇÃO DO INPUT
-    const regexInput = /^[\p{L}\p{N}]+$/u; // \p{L} qualquer letra incluíndo as acentuadas, \p{N}, qualquer numero, /u flag para unicode
-
-    // ACESSAR E MODIFICAR AS VARIAVEIS
 
 
-    const getInput = () => _input;
 
-}
 
-const player1 = createPlayer("Hélio", "X");
-
-console.log(player1);
 
 
 

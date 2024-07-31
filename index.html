@@ -16,23 +16,33 @@
                         <legend>Please insert your name below!</legend>
                     </div>
                     <div id="userDetails">
-                        <div class="userDetailsPlayer1">
-                            <label for="name" id="namePlayer1Label">Player1:</label>
-                            <input type="text" id="namePlayer1" minlength="3"  maxlength="15" required>
-                            <label for="mark" id="markpPlayer1Label">Mark</label>
-                            <select name="markPlayer1" id="markPlayer1">
-                                <option value="circle">O</option>
-                                <option value="cross">X</option>
-                            </select>
+                        <div class="userDetailsPlayer1Total">
+                            <div class="userDetailsPlayer1">
+                                <label for="name" id="namePlayer1Label">Player1:</label>
+                                <input type="text" id="namePlayer1" minlength="3"  maxlength="15" required>
+                                <div id="error-message" class="none"></div>
+                            </div>
+                            <div class="userDetailsPlayer1Aux">
+                                <label for="mark" id="markpPlayer1Label">Mark:</label>
+                                <select name="markPlayer1" id="markPlayer1">
+                                    <option value="circle">O</option>
+                                    <option value="cross">X</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="userDetailsPlayer2">
-                            <label for="name" id="namePlayer2Label">Player2:</label>
-                            <input type="text" id="namePlayer2" minlength="3"  maxlength="15" required>
-                            <label for="mark" id="markpPlayer2Label">Mark</label>
-                            <select name="markPlayer2" id="markPlayer1">
-                                <option value="circle">O</option>
-                                <option value="cross">X</option>
-                            </select>
+                        <div class="userDetailsPlayer2Total">
+                            <div class="userDetailsPlayer2">
+                                <label for="name" id="namePlayer2Label">Player2:</label>
+                                <input type="text" id="namePlayer2" minlength="3"  maxlength="15" required>
+                                <div id="error-message"></div>
+                            </div>
+                            <div class="userDetailsPlayer2Aux">
+                                <label for="mark" id="markpPlayer2Label">Mark:</label>
+                                <select name="markPlayer2" id="markPlayer1">
+                                    <option value="circle">O</option>
+                                    <option value="cross">X</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div id="userDetailsSubmit">
