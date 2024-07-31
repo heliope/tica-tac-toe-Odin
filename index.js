@@ -1,33 +1,88 @@
 
-// 1 -Definir o tabuleiro de Jogo
+//DEFINIÇÃO DO TABULEIRO LÓGICA ----------------------------------------------------------------
 
-// 1.1 - Factory Function para criação do tabuleiro
+// FACTORY FUNCTION - TABULEIRO
+
 function GameBoard() {
-    
-    // 1.1.1 - Dimensões do tabuleiro
-    const rows = 3;
-    const columns = 3;
 
-    // 1.1.2 - Construção do Tabuleiro
+    // DIMENSÕES DO TABULEIRO
+    const cels = 9;
     const board = [];
-
-    for (let i = 0; i < rows; i++) {
-        
-        board[i] = [];
-        for ( let j = 0; j < columns; j++) {
-            
-            board[i] = [];
-        }
-    }
     
-    // 1.1.3 - Closure - neste caso retorna a variavel board
-    const getBoard = () => board;
+    // CONSTRUCÃO DO TABULEIRO
+    for( let i = 0; i < cels; i++) {
+        board[i] = [];
+    }
 
-    return {getBoard}
+    // CLOSURE - RETORNA A VARIAVEL BOARD
+    const getBoard = () => board
+
+    // RETORNA O OBJETO
+    return {getBoard} 
 }
 
-console.log(GameBoard().getBoard());
+// CRIAR UMA INSTANCIA DA FACTORY FUNCTION
+const boardInstance = GameBoard()
 
+//DEFINIÇÃO DO TABULEIRO VISUAL ----------------------------------------------------------------
+
+function renderBoard() {
+
+    // NOVA INSTANCIA DO GAMEBOARD
+    const board = boardInstance.getBoard();
+    const boardElementParent = document.getElementById("gameBoard");
+
+    board.forEach(element => {
+        let cels = document.createElement("div");
+        boardElementParent.appendChild(cels);
+        cels.classList.add("cel")
+    });
+}
+
+document.addEventListener("DOMContentLoaded", renderBoard());
+
+
+// RENDERIZAÇÃO DO TABULEIRO
+
+
+
+
+
+/*
+// 1 - Renderiza o tabuleiro
+function renderBoard() {
+    
+    // 1.1 - Cria uma instância do tabuleiro utilizando Factory Function
+    const board = gameBoard.getBoard();
+
+    console.log(board);
+
+    const boardElementParent = document.getElementById("gameBoard");
+
+    //boardElementParent.removeChild(1);
+
+    board.forEach((row) => {
+        
+        let cel = document.createElement("div");
+        boardElementParent.appendChild(cel);
+        cel.classList.add("cel");
+    })
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // 1.2 - Cria uma instância do tabuleiro utilizando Factory Function
 const gameBoard = GameBoard();
 
@@ -89,13 +144,6 @@ function GameController() {
 
 }
 
-//----------------------------- PARTE VISUAL ----------------------------------------------//
+*/
 
-function renderBoard() {
-
-    const board = gameBoard.getBoard();
-    const boardElementParent = document.getElementById("gameboard");
-
-    boardElementParent.innerHTML
-}
 
