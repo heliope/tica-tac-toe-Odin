@@ -1,6 +1,83 @@
 
-//DEFINIÇÃO DO TABULEIRO LÓGICA ----------------------------------------------------------------
+//REGRA PARTICIPANTES----------------------------------------------------------------
 
+//IIFE DE ENTRADA NO JOGO
+(function() {
+    
+    const entryForm = document.getElementById("formWelcome");
+    entryForm.classList.remove("none");
+})();
+
+
+function createPlayer(name, mark) {
+
+    // VARIVAEIS PRIVADAS
+    let _name = name
+    let _mark = mark;
+
+    // ACESSAR E MODIFICAR AS VARIAVEIS
+    const getName = () => _name;
+    const getMark = () => _mark;
+    const setName = (newName) => {_name = newName};
+    const setMark = (newMark) => {_mark = newMark};
+
+    return { getName, getMark, setName, setMark}
+}
+
+function checkPlayerName( input, regexInput) {
+
+    // RETORNA UM ADD EVENT LISTENER
+    return function (e) {
+        // VALIDA SE O INPUT VAI DE ENCONTRO COM O REGEX ASSOCIADO
+        const regexInput = e.target.value.match(input);
+
+        
+    }
+    
+    // VARIVAEIS PRIVADAS
+    let _input = input
+    
+    // VALIDAÇÃO DO INPUT
+    const regexInput = /^[\p{L}\p{N}]+$/u; // \p{L} qualquer letra incluíndo as acentuadas, \p{N}, qualquer numero, /u flag para unicode
+
+    // ACESSAR E MODIFICAR AS VARIAVEIS
+
+
+    const getInput = () => _input;
+
+}
+
+const player1 = createPlayer("Hélio", "X");
+
+console.log(player1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // FACTORY FUNCTION - TABULEIRO
 
 function GameBoard() {

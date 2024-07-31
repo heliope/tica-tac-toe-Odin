@@ -9,6 +9,39 @@
 </head>
 <body>
     <div id="container">
+        <div id="formWelcome" class="none">
+            <form method="dialog" action="#">
+                <fieldset>
+                    <div id="formTitle">
+                        <legend>Please insert your name below!</legend>
+                    </div>
+                    <div id="userDetails">
+                        <div class="userDetailsPlayer1">
+                            <label for="name" id="namePlayer1Label">Player1:</label>
+                            <input type="text" id="namePlayer1" minlength="3"  maxlength="15" required>
+                            <label for="mark" id="markpPlayer1Label">Mark</label>
+                            <select name="markPlayer1" id="markPlayer1">
+                                <option value="circle">O</option>
+                                <option value="cross">X</option>
+                            </select>
+                        </div>
+                        <div class="userDetailsPlayer2">
+                            <label for="name" id="namePlayer2Label">Player2:</label>
+                            <input type="text" id="namePlayer2" minlength="3"  maxlength="15" required>
+                            <label for="mark" id="markpPlayer2Label">Mark</label>
+                            <select name="markPlayer2" id="markPlayer1">
+                                <option value="circle">O</option>
+                                <option value="cross">X</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="userDetailsSubmit">
+                        <button type="submit" id="enter" disabled="true">Entrar</button>
+                        <button type="reset" id="cancel" value="cancel">Cancel</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
         <dl id="leaderboard">
             <div class="playerOne">
                 <dt class="playerName">Player 1</dt>
