@@ -1,13 +1,6 @@
 
 // REGRA PARTICIPANTES----------------------------------------------------------------
-/*
-// FORMULÁRIO ENTRADA NO JOGO
-function formWelcome() {
-     
-    const entryForm = document.getElementById("formWelcome");
-    entryForm.classList.remove("none");
-};
-*/
+
 // CRIAÇÃO E VALIDAÇÃO DOS JOGADORES
 function checkPlayerName( regexInput, input, errorMessage) {
         
@@ -18,14 +11,17 @@ function checkPlayerName( regexInput, input, errorMessage) {
             
         if (input.value.length < 3 || input.value.length > 15) {
             errorMessage.textContent = "Your name should be between 3 and 15 characters";
+            errorMessage.className = "errorMessageIncorrect";
         }
 
         else if (!inputUserRegex) {
             errorMessage.textContent = "Incorrect characters! Please try again";
+            errorMessage.className = "errorMessageIncorrect";
         }
 
         else {
             errorMessage.textContent = "Correct names! Good Luck!";
+            errorMessage.className = "errorMessageCorrect";
         }
     }
 }
@@ -35,20 +31,21 @@ function initCheckPlayerName () {
     // VALIDAÇÃO DO INPUT
     const regexInput = /^[\p{L}\p{N}]{3,15}$/u; // \p{L} qualquer letra incluíndo as acentuadas, \p{N}, qualquer numero, /u flag para unicode
     const inputPlayer1 = document.getElementById("namePlayer1");
+    const inputPlayer2 = document.getElementById("namePlayer2");
     const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
+    const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2");
 
     // FACTORY FUNCTION - INSTANCIAR OBJETO
-    const inputUserCheck = checkPlayerName(regexInput, inputPlayer1, regexMessagePlayer1);
-
-    // ADICIONA UM ADD EVENT LISTENER NA ENTRADA DO INPUT (ALTERAÇÃO DE VALOR)
-    //input.addEventListener("input",formWelcome())
+    const inputUserCheckPlayer1 = checkPlayerName(regexInput, inputPlayer1, regexMessagePlayer1);
+    const inputUserCheckPlayer2 = checkPlayerName(regexInput,inputPlayer2,regexMessagePlayer2);
 
     //  MOSTRA MENSAGEM
     regexMessagePlayer1.classList.remove("none");
-    regexMessagePlayer1.classList.add("errorMessage");
+    regexMessagePlayer2.classList.remove("none");
 
     // ADICIONA UM EVENTO LISTENER NO CAMPO DE ENTRADA
-    inputPlayer1.addEventListener("input",inputUserCheck);
+    inputPlayer1.addEventListener("input",inputUserCheckPlayer1);
+    inputPlayer2.addEventListener("input", inputUserCheckPlayer2)
 }
 
 document.addEventListener("DOMContentLoaded",initCheckPlayerName);

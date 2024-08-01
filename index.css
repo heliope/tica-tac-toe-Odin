@@ -18,12 +18,14 @@
 
 .errorMessageCorrect {
     background-color: var(--correctColor);
-    font-size: 12px;
+    font-size: 16px;
+    padding-left: 15px;
 }
 
 .errorMessageIncorrect {
     background-color: var(--incorrecColor);
-    font-size: 12px;
+    font-size: 16px;
+    padding-left: 15px;
 } 
 
 #container {
@@ -33,10 +35,10 @@
 
 #formWelcome {
     position: absolute;
-    top: 50%;
+    top: 25%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    width: 330px;
+    transform: translate(-50%,-25%);
+    width: 70%;
     max-width: 500px;
 }
 
@@ -44,7 +46,7 @@
     display: grid;
     grid-template-rows: minmax(50px, 0.25fr) minmax(100px, 1fr) minmax(50px, 0.25fr);
     border: none;
-    font-size: 18px;
+    font-size: 22px;
     background-color: var(--textColor); 
 }
 
@@ -64,6 +66,11 @@
 #formWelcome form fieldset div#playerDetails input {
     border: none;
     border-bottom: 2px solid var(--playerOneColor);
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    font-size: 18px;
 }
 
 #formWelcome form fieldset div#playerDetails input:focus {
@@ -72,28 +79,35 @@
 
 #formWelcome form fieldset div#playerDetails div.playerDetails1 {
     background-color: var(--playerOneColor);
-    padding: 15px;
-    color:var(--textColor)
+    color:var(--textColor);
+    display: flex;
+    flex-direction: column;
 }
 
 #formWelcome form fieldset div#playerDetails div.playerDetails1Aux1{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
+#formWelcome form fieldset div#playerDetails div.playerDetails1Aux1 label {
+    margin-left: 20px;
+}
+
+#formWelcome form fieldset div#playerDetails div.playerDetails1Aux2 label {
+    margin-left: 35px;
+    margin-right: 15px;
+    padding-right: 5px;
+}
 #formWelcome form fieldset div#playerDetails div.playerDetails1Aux2 {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
 }
 
-#formWelcome form fieldset div#playerDetails div.playerDetails1Aux2 label {
-    padding-right: 5px;
-}
-
 #formWelcome form fieldset div#playerDetails div.playerDetails2 {
     margin-bottom: 10px;
     background-color: var(--playerTwoColor);
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
     color:var(--textColor)
 }
 
@@ -107,7 +121,14 @@
     margin-bottom: 10px;
 }
 
+#formWelcome form fieldset div#playerDetails div.playerDetails2Aux1 label {
+    margin-left: 20px;
+}
+
+
 #formWelcome form fieldset div#playerDetails div.playerDetails2Aux2 label {
+    margin-left: 35px;
+    margin-right: 15px;
     padding-right: 5px;
 }
 
@@ -127,7 +148,7 @@
     align-items: center;
     margin-top: 10x;
     margin-bottom: 10px;
-    gap: 10px;
+    gap: 30px;
 }
 
 #formWelcome form fieldset div#playerDetailsButton button {
@@ -137,7 +158,8 @@
     background-color: var(--buttonColor);
     color: var(--textColor);
     font-weight: bolder;
-    padding: 15px;
+    padding: 15px 30px;
+    font-size: 20px;
 }
 
 
