@@ -1,7 +1,7 @@
 
 // REGRA PARTICIPANTES----------------------------------------------------------------
 
-// CRIAÇÃO E VALIDAÇÃO DOS JOGADORES
+// CRIAÇÃO E VALIDAÇÃO DO NOME DOS JOGADORES
 function checkPlayerName( regexInput, input, errorMessage) {
         
     // FUNÇÃO QUE RETORNA O ADD EVENT LISTENER
@@ -34,6 +34,7 @@ function initCheckPlayerName () {
     const inputPlayer2 = document.getElementById("namePlayer2");
     const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
     const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2");
+    const buttonEnter = document.getElementById("enter");
 
     // FACTORY FUNCTION - INSTANCIAR OBJETO
     const inputUserCheckPlayer1 = checkPlayerName(regexInput, inputPlayer1, regexMessagePlayer1);
@@ -45,10 +46,10 @@ function initCheckPlayerName () {
 
     // ADICIONA UM EVENTO LISTENER NO CAMPO DE ENTRADA
     inputPlayer1.addEventListener("input",inputUserCheckPlayer1);
-    inputPlayer2.addEventListener("input", inputUserCheckPlayer2)
-}
+    inputPlayer2.addEventListener("input", inputUserCheckPlayer2);
 
-document.addEventListener("DOMContentLoaded",initCheckPlayerName);
+}
+document.addEventListener("DOMContentLoaded",initCheckPlayerName)
 /*
 function createPlayer(name, mark) {
 

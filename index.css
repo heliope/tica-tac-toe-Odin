@@ -132,12 +132,12 @@
     padding-right: 5px;
 }
 
-#formWelcome form fieldset div#playerDetailsButton button#enter:hover {
+#formWelcome form fieldset div#playerDetailsButton button.enter:hover {
     background-color: var(--correctColor);
     color:var(--textColor);
 }
 
-#formWelcome form fieldset div#playerDetailsButton button#cancel:hover {
+#formWelcome form fieldset div#playerDetailsButton button.cancel:hover {
     background-color: var(--incorrecColor);
     color: var(--textColor);
 }
