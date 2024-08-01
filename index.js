@@ -1,48 +1,58 @@
 
-//REGRA PARTICIPANTES----------------------------------------------------------------
-
-//IIFE DE ENTRADA NO JOGO
-(function() {
-    
+// REGRA PARTICIPANTES----------------------------------------------------------------
+/*
+// FORMULÁRIO ENTRADA NO JOGO
+function formWelcome() {
+     
     const entryForm = document.getElementById("formWelcome");
     entryForm.classList.remove("none");
-})();
-
-//CRIAÇÃO E VALIDAÇÃO DOS JOGADORES
-function checkPlayerName( regexInput, errorMessage) {
-
-    //CLOSURE GUARDA ASM VARIAVEIS PRIVADAS QUE PODEM SER REUTILIZADAS
-    const inputUserCheck = (e) => {
-        // VALIDA SE O INPUT VAI DE ENCONTRO COM O REGEX ASSOCIADO
+};
+*/
+// CRIAÇÃO E VALIDAÇÃO DOS JOGADORES
+function checkPlayerName( regexInput, input, errorMessage) {
+        
+    // FUNÇÃO QUE RETORNA O ADD EVENT LISTENER
+    return function (e) {
+            
         const inputUserRegex = regexInput.test(e.target.value);
+            
+        if (input.value.length < 3 || input.value.length > 15) {
+            errorMessage.textContent = "Your name should be between 3 and 15 characters";
+        }
 
-        if (inputUserRegex !=null || !inputUserRegex) {
-            errorMessage.textContent = "Invalid characters! Please try again"
+        else if (!inputUserRegex) {
+            errorMessage.textContent = "Incorrect characters! Please try again";
         }
 
         else {
-            errorMessage.textContent = "Correct names! Good Luck!"
-        } 
+            errorMessage.textContent = "Correct names! Good Luck!";
+        }
     }
-    return inputUserCheck; 
 }
-
+    
 function initCheckPlayerName () {
 
     // VALIDAÇÃO DO INPUT
     const regexInput = /^[\p{L}\p{N}]{3,15}$/u; // \p{L} qualquer letra incluíndo as acentuadas, \p{N}, qualquer numero, /u flag para unicode
-    const input = document.getElementById("namePlayer1");
-    const errorMessage = document.getElementById("error-message");
+    const inputPlayer1 = document.getElementById("namePlayer1");
+    const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
 
     // FACTORY FUNCTION - INSTANCIAR OBJETO
-    const inputUserCheck = checkPlayerName(regexInput, errorMessage);
+    const inputUserCheck = checkPlayerName(regexInput, inputPlayer1, regexMessagePlayer1);
 
-    //ADICIONA UM EVENTO LISTENER NO CAMPO DE ENTRADA
-    input.addEventListener("keyup",inputUserCheck);
+    // ADICIONA UM ADD EVENT LISTENER NA ENTRADA DO INPUT (ALTERAÇÃO DE VALOR)
+    //input.addEventListener("input",formWelcome())
+
+    //  MOSTRA MENSAGEM
+    regexMessagePlayer1.classList.remove("none");
+    regexMessagePlayer1.classList.add("errorMessage");
+
+    // ADICIONA UM EVENTO LISTENER NO CAMPO DE ENTRADA
+    inputPlayer1.addEventListener("input",inputUserCheck);
 }
 
-document.addEventListener("DOMContentLoaded", initCheckPlayerName);
-
+document.addEventListener("DOMContentLoaded",initCheckPlayerName);
+/*
 function createPlayer(name, mark) {
 
     // VARIVAEIS PRIVADAS
@@ -59,10 +69,7 @@ function createPlayer(name, mark) {
 }
 
 
-
-
-
-
+    
 
 
 

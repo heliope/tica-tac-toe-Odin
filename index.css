@@ -6,111 +6,142 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     --playerOneColor: #121f31;
     --playerTwoColor: #154e94;
-    --textColor: #e4eda3
+    --textColor: #e4eda3;
+    --correctColor: #4baf3d;
+    --incorrecColor: #d1442b;
+    --buttonColor: #5e5d5d; 
 }
 
 .none {
     display: none;
 }
 
+.errorMessageCorrect {
+    background-color: var(--correctColor);
+    font-size: 12px;
+}
+
+.errorMessageIncorrect {
+    background-color: var(--incorrecColor);
+    font-size: 12px;
+} 
+
 #container {
-    display: grid;
-    grid-template-rows: 0.6fr 3fr;
     width: 100vw;
     height: 100vh;
 }
 
 #formWelcome {
     position: absolute;
-    top: 100px;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%,50%);
+    transform: translate(-50%,-50%);
+    width: 330px;
+    max-width: 500px;
 }
 
 #formWelcome form fieldset {
-    height: 100%;
+    display: grid;
+    grid-template-rows: minmax(50px, 0.25fr) minmax(100px, 1fr) minmax(50px, 0.25fr);
     border: none;
     font-size: 18px;
-    display: grid;
-    grid-template-rows: 0.5fr 1fr 0.5fr;
     background-color: var(--textColor); 
 }
 
 #formWelcome form fieldset div#formTitle {
-    color: var(--playerOneColor);
     text-align: center;
     align-self: center;
+    color: var(--playerOneColor);
+    padding: 10px;
 }
 
-#formWelcome form fieldset div#userDetails {
-    color: var(--playerTwoColor);
-    text-align: left;
+#formWelcome form fieldset div#playerDetails {
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    text-align: left;
 }
 
-#formWelcome form fieldset div#userDetails input {
+#formWelcome form fieldset div#playerDetails input {
     border: none;
     border-bottom: 2px solid var(--playerOneColor);
 }
 
-#formWelcome form fieldset div#userDetails input:focus {
+#formWelcome form fieldset div#playerDetails input:focus {
     outline: none;
 }
 
-#formWelcome form fieldset div#userDetails div.userDetailsPlayer1Total {
+#formWelcome form fieldset div#playerDetails div.playerDetails1 {
+    background-color: var(--playerOneColor);
+    padding: 15px;
+    color:var(--textColor)
+}
+
+#formWelcome form fieldset div#playerDetails div.playerDetails1Aux1{
     margin-bottom: 10px;
 }
 
-#formWelcome form fieldset div#userDetails div.userDetailsPlayer1 {
-    margin-bottom: 10px;
-}
-
-#formWelcome form fieldset div#userDetails div.userDetailsPlayer1 div.userDetailsPlayer1Aux {
+#formWelcome form fieldset div#playerDetails div.playerDetails1Aux2 {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
 }
 
-#formWelcome form fieldset div#userDetails div.userDetailsPlayer2 {
+#formWelcome form fieldset div#playerDetails div.playerDetails1Aux2 label {
+    padding-right: 5px;
+}
+
+#formWelcome form fieldset div#playerDetails div.playerDetails2 {
     margin-bottom: 10px;
-}
-
-#formWelcome form fieldset div#userDetails div.userDetailsPlayer2 div.userDetailsPlayer2Aux {
-    display: flex;
-    flex-direction: row;
-}
-
-#formWelcome form fieldset div#userDetailsSubmit button:hover {
     background-color: var(--playerTwoColor);
+    padding: 15px;
+    color:var(--textColor)
 }
 
-#formWelcome form fieldset div#userDetailsSubmit{
-    text-align: center;
+#formWelcome form fieldset div#playerDetails div.playerDetails2Aux1{
+    margin-bottom: 10px;
+}
+
+#formWelcome form fieldset div#playerDetails div.playerDetails2Aux2 {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+#formWelcome form fieldset div#playerDetails div.playerDetails2Aux2 label {
+    padding-right: 5px;
+}
+
+#formWelcome form fieldset div#playerDetailsButton button#enter:hover {
+    background-color: var(--correctColor);
+    color:var(--textColor);
+}
+
+#formWelcome form fieldset div#playerDetailsButton button#cancel:hover {
+    background-color: var(--incorrecColor);
+    color: var(--textColor);
+}
+
+#formWelcome form fieldset div#playerDetailsButton{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin-top: 10x;
+    margin-bottom: 10px;
+    gap: 10px;
 }
 
-#formWelcome form fieldset div#userDetailsSubmit button {
-    border-radius: 15px;
-    background-color: var(--playerOneColor);
+#formWelcome form fieldset div#playerDetailsButton button {
     border: none;
+    border-radius: 10px;
     border-bottom: 2px solid var(--playerOneColor);
+    background-color: var(--buttonColor);
     color: var(--textColor);
     font-weight: bolder;
-    height: min(10vh, 50px);
-    width: min(15vw, 120px);
+    padding: 15px;
 }
 
-#formWelcome form fieldset div#userDetailsSubmit button#enter {
-    margin-right: 35px;
-} 
 
+/*
 #leaderboard{
     display: flex;
     flex-direction: row;

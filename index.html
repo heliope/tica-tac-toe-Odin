@@ -9,20 +9,20 @@
 </head>
 <body>
     <div id="container">
-        <div id="formWelcome" class="none">
+        <div id="formWelcome">
             <form method="dialog" action="#">
                 <fieldset>
                     <div id="formTitle">
                         <legend>Please insert your name below!</legend>
                     </div>
-                    <div id="userDetails">
-                        <div class="userDetailsPlayer1Total">
-                            <div class="userDetailsPlayer1">
+                    <div id="playerDetails">
+                        <div class="playerDetails1">
+                            <div class="playerDetails1Aux1">
                                 <label for="name" id="namePlayer1Label">Player1:</label>
                                 <input type="text" id="namePlayer1" minlength="3"  maxlength="15" required>
-                                <div id="error-message" class="none"></div>
+                                <div id="regexMessagePlayer1" class="none"></div>
                             </div>
-                            <div class="userDetailsPlayer1Aux">
+                            <div class="playerDetails1Aux2">
                                 <label for="mark" id="markpPlayer1Label">Mark:</label>
                                 <select name="markPlayer1" id="markPlayer1">
                                     <option value="circle">O</option>
@@ -30,13 +30,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="userDetailsPlayer2Total">
-                            <div class="userDetailsPlayer2">
+                        <div class="playerDetails2">
+                            <div class="playerDetails2Aux1">
                                 <label for="name" id="namePlayer2Label">Player2:</label>
                                 <input type="text" id="namePlayer2" minlength="3"  maxlength="15" required>
-                                <div id="error-message"></div>
+                                <div id="regexMessagePlayer2"></div>
                             </div>
-                            <div class="userDetailsPlayer2Aux">
+                            <div class="playerDetails2Aux2">
                                 <label for="mark" id="markpPlayer2Label">Mark:</label>
                                 <select name="markPlayer2" id="markPlayer1">
                                     <option value="circle">O</option>
@@ -45,8 +45,8 @@
                             </div>
                         </div>
                     </div>
-                    <div id="userDetailsSubmit">
-                        <button type="submit" id="enter" disabled="true">Entrar</button>
+                    <div id="playerDetailsButton">
+                        <button type="submit" id="enter" disabled="true">Enter</button>
                         <button type="reset" id="cancel" value="cancel">Cancel</button>
                     </div>
                 </fieldset>
@@ -63,6 +63,8 @@
             </div>
         </dl>
         <div id="gameBoard">
+        </div>
+        <div id="buttons">
         </div>
     </div>
 </body>
