@@ -122,7 +122,7 @@ function initCheckPlayerName () {
 // INCIALIZAR O JOGO
 function startGame() {
     
-    const board = document.getElementById("gameBoard");
+    const board = document.getElementById("gameboard");
     const leaderboard = document.getElementById("leaderboard");
     const buttons = document.getElementById("buttons");
     const formWelcome = document.getElementById("formWelcome");
@@ -136,7 +136,6 @@ function startGame() {
     playerName2.textContent = inputPlayer2.value;
 
     // MOSTRA VISIVEIS O LEADERBOARD, TABULEIRO DE JOGO E BUTTONS
-
     board.classList.remove("none");
     leaderboard.classList.remove("none");
     buttons.classList.remove("none");
@@ -144,49 +143,49 @@ function startGame() {
     // OCULTA FORMULÁRIO
     formWelcome.classList.add("none");
 
+    // RENDERIZAR O TABULEIRO
+    renderGameBoard()
+
 }
 
-/*
-function createPlayer(name, mark) {
+// FACTORY FUNCTION
+function gameBoard() {
 
-    // VARIVAEIS PRIVADAS
-    let _name = name
-    let _mark = mark;
+    // DIMENSÕES DO TABULEIRO
+    const cels = 9;
+    const board = [];
 
-    // ACESSAR E MODIFICAR AS VARIAVEIS
-    const getName = () => _name;
-    const getMark = () => _mark;
-    const setName = (newName) => {_name = newName};
-    const setMark = (newMark) => {_mark = newMark};
+    // CONSTRUÇÃO DO TABULEIRO
+    for (let i = 0; i < cels; i++) {
 
-    return { getName, getMark, setName, setMark}
+        board[i] = [];
+    }
+
+    // CLOSURE - RETORNA VARIAVEL BOARD
+    const getGameBoard = () => board
+
+    // RETORNA O OBJETO 
+    return {getGameBoard};
 }
 
 
-    
+// RENDERIZAÇÃO DO TABULEIRO
+function renderGameBoard() {
 
+    //NOVA INSTÂNCIA DO GAMEBOARD
+    const board = gameBoard().getGameBoard();
 
+    const boardElementParent = document.getElementById("gameboard");
 
+    // DESENHO DA TABELA NO ECRA
+    board.forEach(element => {
 
+        let cels = document.createElement("div");
+        boardElementParent.appendChild(cels);
+        cels.classList.add("cel");
+    })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 

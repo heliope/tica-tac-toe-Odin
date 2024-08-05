@@ -162,13 +162,11 @@
     font-size: 20px;
 }
 
-
-/*
 #leaderboard{
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
-    color: var(--textColor)
+    color: var(--textColor);
+    font-size: 26px;
 }
 
 .playerOne {
@@ -177,6 +175,7 @@
     justify-content: right;
     align-items: center;
     background-color: var(--playerOneColor);
+    padding: 30px;
 }
 
 .playerTwo {
@@ -185,16 +184,12 @@
     justify-content: left;
     align-items: center;
     background-color: var(--playerTwoColor);
-}
-
-.playerTwo .playerName {
-    padding-left: 20px;
+    padding: 30px;
 }
 
 .playerName {
     font-size: larger;
     font-weight: bolder;
-
 }
 
 .playerOne .result {
@@ -208,12 +203,11 @@
 }
 
 .result {
-    font-size: larger;
+    font-size: 30px;
     font-weight: bolder;
 }
 
-/*
-#gameBoard {
+#gameboard {
     display: grid;
     grid-template-columns: 0.5fr 0.5fr 0.5fr;
     width: 50%;
@@ -221,11 +215,10 @@
     margin-right: auto;
     margin-top: 70px;
     margin-bottom: 70px;
-    gap: 5x;
-    
+    gap: 5px;
 }
 
-#gameBoard div.cel {
+#gameboard div.cel {
     background-color: var(--textColor);
     border: 2px solid black;
 }
