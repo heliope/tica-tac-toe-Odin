@@ -1,4 +1,6 @@
 
+document.addEventListener("DOMContentLoaded",initCheckPlayerName);
+
 // REGRA PARTICIPANTES----------------------------------------------------------------
 
 // CRIAÇÃO E VALIDAÇÃO DO NOME DOS JOGADORES
@@ -56,24 +58,33 @@ function selectMarksPlayer(markPlayer1Id, markPlayer2Id) {
         const markPlayer1 = document.getElementById(markPlayer1Id);
         const markPlayer2 = document.getElementById(markPlayer2Id);
 
-        console.log("markPlayer1 value:", markPlayer1.value);
-        console.log("markPlayer2 value:", markPlayer2.value);
+        // CLOSURES -> PERMITE AO JAVASCRIPT AINDA LEMBRAR DE EXECUTAR
+        markPlayer1.addEventListener("change", () => {
+            
+            if ( markPlayer1.value === "circle") {
 
-        if ( markPlayer1.value === "circle") {
+                markPlayer2.value="cross";
+            }
+        
+            else if ( markPlayer1.value === "cross") {
+        
+                markPlayer2.value = "circle";
+            }
+        })
 
-            markPlayer2.value="cross";
-        }
-    
-        else if ( markPlayer1.value === "cross") {
-    
-            markPlayer2.value = "circle";
-        }
-    
-        else if ( markPlayer2.value === "circle") {
-    
-            markPlayer1.value = "cross";
-        }
+        markPlayer2.addEventListener("change", () => {
 
+            if ( markPlayer2.value === "circle") {
+    
+                markPlayer1.value = "cross";
+            }
+    
+            else if ( markPlayer2.value === "cross") {
+    
+                markPlayer1.value = "circle";
+            }
+
+        })
     }
 }
 
@@ -86,8 +97,6 @@ function initCheckPlayerName () {
     const inputPlayer2 = document.getElementById("namePlayer2");
     const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
     const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2");
-    const markPlayer1 = document.getElementById("markPlayer1");
-    const markPlayer2 = document.getElementById("markPlayer2");
     const buttonEnter = document.getElementById("enter");
     
     // FACTORY FUNCTION - INSTANCIAR OBJETO
@@ -103,9 +112,8 @@ function initCheckPlayerName () {
     inputPlayer2.addEventListener("input", inputUserCheckPlayer2);
 
     // FACTORY FUNCTION - INSTANCIAR OBJETO
-    const selectMarksPlayerTotal = selectMarksPlayer(markPlayer1,markPlayer2);
-    markPlayer1.addEventListener("change", selectMarksPlayerTotal);
-    markPlayer2.addEventListener("change", selectMarksPlayerTotal);
+    const selectMarksPlayerTotal = selectMarksPlayer("markPlayer1","markPlayer2");
+    selectMarksPlayerTotal();
 
     //INICIAR O JOGO
     buttonEnter.addEventListener("click", startGame);
@@ -137,8 +145,6 @@ function startGame() {
     formWelcome.classList.add("none");
 
 }
-
-document.addEventListener("DOMContentLoaded",initCheckPlayerName);
 
 /*
 function createPlayer(name, mark) {
