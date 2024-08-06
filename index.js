@@ -137,8 +137,9 @@ function startGame() {
 
     // MOSTRA VISIVEIS O LEADERBOARD, TABULEIRO DE JOGO E BUTTONS
     board.classList.remove("none");
-    leaderboard.classList.remove("none");
+    leaderboard.style.display="flex";
     buttons.classList.remove("none");
+    
 
     // OCULTA FORMULÁRIO
     formWelcome.classList.add("none");
