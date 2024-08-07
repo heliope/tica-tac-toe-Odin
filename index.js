@@ -1,339 +1,203 @@
+// JOGO - CRIA JOGADORES E MARCAS
 
-document.addEventListener("DOMContentLoaded",initCheckPlayerName);
+// FACTORY FUNCTION
+function createGameController() {
 
-// REGRA PARTICIPANTES----------------------------------------------------------------
+    // VARIAVEIS JOGADORES E MARCAS
+    let player1Name = "";
+    let player2Name = "";
+    let player1Mark = "";
+    let player2Mark = "";
 
-// CRIAÇÃO E VALIDAÇÃO DO NOME DOS JOGADORES
-function checkPlayerName( regexInput, input, errorMessage , buttonEnter) {
+
+    // VALIDAÇÃO DO NOME DOS JOGADORES
+    function checkPlayerName ( inputId, errorMessageId, buttonEnterId) {
         
-    // FUNÇÃO QUE RETORNA O ADD EVENT LISTENER
-    return function (e) {
-            
-        const inputUserRegex = regexInput.test(e.target.value);
-            
-        if (input.value.length < 3 || input.value.length > 15) {
-            errorMessage.textContent = "Your name should be between 3 and 15 characters";
-            errorMessage.className = "errorMessageIncorrect";
-        }
-
-        else if (!inputUserRegex) {
-            errorMessage.textContent = "Incorrect characters! Please try again";
-            errorMessage.className = "errorMessageIncorrect";
-        }
-
-        else {
-            errorMessage.textContent = "Correct names! Good Luck!";
-            errorMessage.className = "errorMessageCorrect";
-        }
-
-        checkButtons(buttonEnter);
-    }
-}
-
-// FUNÇÃO QUE VERIFICA QUE DESBLOQUEIA O BOTÃO PARA ENTRAR
-function checkButtons(buttonEnter) {
-
-    const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
-    const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2");
-
-    if ( regexMessagePlayer1.classList.contains("errorMessageCorrect") && regexMessagePlayer2.classList.contains("errorMessageCorrect")) {
+        const input = document.getElementById(inputId);
+        const errorMessage = document.getElementById(errorMessageId);
+        const buttonEnter = document.getElementById(buttonEnterId);
         
-        buttonEnter.removeAttribute("disabled");
-        buttonEnter.classList.remove("none");
-        buttonEnter.classList.add("enter");
+        // O NOME DO JOGADOR DEVE TER ENTRE 3 A 15 LETRAS
+        const regexInput = /^[\p{L}\p{N}]{3,15}$/u;
+
+        // CLOSURE - LÓGICA DE VALIDAÇÃO DO NOME DO JOGADOR
+        const checkName = () => {
+            
+            const inputUserRegex = regexInput.test(input.value);
+
+            if( input.value.length < 3 || input.value.length > 15 ) {
+
+                errorMessage.textContent = "Your name should be between 3 and 15 characters";
+                errorMessage.className = "errorMessageIncorrect";
+            }
+
+            else if( !inputUserRegex ) {
+
+                errorMessage.textContent = "Incorrect characters! Please try again";
+                errorMessage.className = "errorMessageIncorrect";
+            }
+
+            else {
+
+                errorMessage.textContent= "Correct Names! Good Luck!";
+                errorMessage.className = "errorMessageCorrect";
+            }
+
+            // CHAMA A FUNÇÃO DE DESBLOQUEAR O BOTÃOD E ENTRAR
+            checkButton(buttonEnter)
+        }
+
+        // EXECUTA A FUNÇÃO CHECKNAME
+        function attachEventListener() {
+
+            input.addEventListener("input",checkName);
+        }
+
+        function deleteEventListener() {
+
+            input.removeEventListener("input",checkName);
+        }
+
+        // RETORNA O VALOR DO JOGADOR
+        function getName() {
+
+            return input.value;
+        }
+
+        return  {attachEventListener, deleteEventListener, getName};
     }
 
-    else {
-        buttonEnter.setAttribute("disabled","false");
-        buttonEnter.classList.remove("enter");
-        buttonEnter.classList.add("none");
-    }
-}
-
-// FUNÇÃO PARA VERFICAR MARKS SELECIONADAS PELOS JOGADORES
-function selectMarksPlayer(markPlayer1Id, markPlayer2Id) {
-
-    return function() {
+    // FUNÇÃO QUE VERIFICA MARKS SELECIONADAS PELOS PLAYERS
+    function selectPlayerMarks( markPlayer1Id, markPlayer2Id) {
 
         const markPlayer1 = document.getElementById(markPlayer1Id);
         const markPlayer2 = document.getElementById(markPlayer2Id);
 
-        // CLOSURES -> PERMITE AO JAVASCRIPT AINDA LEMBRAR DE EXECUTAR
-        markPlayer1.addEventListener("change", () => {
+        // CLOSURE - GUARDA A LÓGICA DE VERIFICAÇÃO DAS MARCAS DOS PLAYERS
+        const updateMarks = (e) => {
             
-            if ( markPlayer1.value === "circle") {
+            if ( e.target === markPlayer1) {
 
-                markPlayer2.value="cross";
-            }
-        
-            else if ( markPlayer1.value === "cross") {
-        
-                markPlayer2.value = "circle";
-            }
-        })
+                if( markPlayer1.value === "circle" ) {
 
-        markPlayer2.addEventListener("change", () => {
-
-            if ( markPlayer2.value === "circle") {
+                    markPlayer2.value = "cross";
+                }
     
-                markPlayer1.value = "cross";
-            }
+                else if( markPlayer1.value === "cross" ) {
     
-            else if ( markPlayer2.value === "cross") {
-    
-                markPlayer1.value = "circle";
+                    markPlayer2.value = "circle";
+                }
             }
 
-        })
-    }
-}
+            else if ( e.target === markPlayer2) {
+                
+                if( markPlayer2.value === "circle" ) {
 
-// FUNÇÃO DO MENU QUE INICIALIZA
-function initCheckPlayerName () {
-
-    // VALIDAÇÃO DO INPUT
-    const regexInput = /^[\p{L}\p{N}]{3,15}$/u; // \p{L} qualquer letra incluíndo as acentuadas, \p{N}, qualquer numero, /u flag para unicode
-    const inputPlayer1 = document.getElementById("namePlayer1");
-    const inputPlayer2 = document.getElementById("namePlayer2");
-    const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
-    const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2");
-    const buttonEnter = document.getElementById("enter");
+                    markPlayer1.value = "cross";
+                }
     
-    // FACTORY FUNCTION - INSTANCIAR OBJETO
-    const inputUserCheckPlayer1 = checkPlayerName(regexInput, inputPlayer1, regexMessagePlayer1, buttonEnter);
-    const inputUserCheckPlayer2 = checkPlayerName(regexInput,inputPlayer2,regexMessagePlayer2, buttonEnter);
-
-    //  MOSTRA MENSAGEM
-    regexMessagePlayer1.classList.remove("none");
-    regexMessagePlayer2.classList.remove("none");
-
-    // ADICIONA UM EVENTO LISTENER NO CAMPO DE ENTRADA
-    inputPlayer1.addEventListener("input",inputUserCheckPlayer1);
-    inputPlayer2.addEventListener("input", inputUserCheckPlayer2);
-
-    // FACTORY FUNCTION - INSTANCIAR OBJETO
-    const selectMarksPlayerTotal = selectMarksPlayer("markPlayer1","markPlayer2");
-    selectMarksPlayerTotal();
-
-    //INICIAR O JOGO
-    buttonEnter.addEventListener("click", startGame);
-}
-
-// INCIALIZAR O JOGO
-function startGame() {
+                else if( markPlayer2.value === "cross" ) {
     
-    const board = document.getElementById("gameboard");
-    const leaderboard = document.getElementById("leaderboard");
-    const buttons = document.getElementById("buttons");
-    const formWelcome = document.getElementById("formWelcome");
-    const playerName1 = document.getElementById("playerName1");
-    const playerName2 = document.getElementById("playerName2");
-    const inputPlayer1 = document.getElementById("namePlayer1");
-    const inputPlayer2 = document.getElementById("namePlayer2");
-
-    // ATRIBUI NOME DOS JOGADORES NO LEADERBOARD
-    playerName1.textContent = inputPlayer1.value;
-    playerName2.textContent = inputPlayer2.value;
-
-    // MOSTRA VISIVEIS O LEADERBOARD, TABULEIRO DE JOGO E BUTTONS
-    board.classList.remove("none");
-    leaderboard.style.display="flex";
-    buttons.classList.remove("none");
-    
-
-    // OCULTA FORMULÁRIO
-    formWelcome.classList.add("none");
-
-    // RENDERIZAR O TABULEIRO
-    renderGameBoard()
-
-}
-
-// FACTORY FUNCTION
-function gameBoard() {
-
-    // DIMENSÕES DO TABULEIRO
-    const cels = 9;
-    const board = [];
-
-    // CONSTRUÇÃO DO TABULEIRO
-    for (let i = 0; i < cels; i++) {
-
-        board[i] = [];
-    }
-
-    // CLOSURE - RETORNA VARIAVEL BOARD
-    const getGameBoard = () => board
-
-    // RETORNA O OBJETO 
-    return {getGameBoard};
-}
-
-
-// RENDERIZAÇÃO DO TABULEIRO
-function renderGameBoard() {
-
-    //NOVA INSTÂNCIA DO GAMEBOARD
-    const board = gameBoard().getGameBoard();
-
-    const boardElementParent = document.getElementById("gameboard");
-
-    // DESENHO DA TABELA NO ECRA
-    board.forEach(element => {
-
-        let cels = document.createElement("div");
-        boardElementParent.appendChild(cels);
-        cels.classList.add("cel");
-    })
-
-}
-
-
-
-/*
-// FACTORY FUNCTION - TABULEIRO
-
-function GameBoard() {
-
-    // DIMENSÕES DO TABULEIRO
-    const cels = 9;
-    const board = [];
-    
-    // CONSTRUCÃO DO TABULEIRO
-    for( let i = 0; i < cels; i++) {
-        board[i] = [];
-    }
-
-    // CLOSURE - RETORNA A VARIAVEL BOARD
-    const getBoard = () => board
-
-    // RETORNA O OBJETO
-    return {getBoard} 
-}
-
-// CRIAR UMA INSTANCIA DA FACTORY FUNCTION
-const boardInstance = GameBoard()
-
-//DEFINIÇÃO DO TABULEIRO VISUAL ----------------------------------------------------------------
-
-function renderBoard() {
-
-    // NOVA INSTANCIA DO GAMEBOARD
-    const board = boardInstance.getBoard();
-    const boardElementParent = document.getElementById("gameBoard");
-
-    board.forEach(element => {
-        let cels = document.createElement("div");
-        boardElementParent.appendChild(cels);
-        cels.classList.add("cel")
-    });
-}
-
-document.addEventListener("DOMContentLoaded", renderBoard());
-
-
-// RENDERIZAÇÃO DO TABULEIRO
-
-
-
-
-
-/*
-// 1 - Renderiza o tabuleiro
-function renderBoard() {
-    
-    // 1.1 - Cria uma instância do tabuleiro utilizando Factory Function
-    const board = gameBoard.getBoard();
-
-    console.log(board);
-
-    const boardElementParent = document.getElementById("gameBoard");
-
-    //boardElementParent.removeChild(1);
-
-    board.forEach((row) => {
-        
-        let cel = document.createElement("div");
-        boardElementParent.appendChild(cel);
-        cel.classList.add("cel");
-    })
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// 1.2 - Cria uma instância do tabuleiro utilizando Factory Function
-const gameBoard = GameBoard();
-
-// 2 - Define Jogadores, Símbolo de Jogo e Regras de quem começa cada ronda
-
-// 2.1 - Jogadores e Símbolo
-function GameEntities( playerOneName = "player1", playerTwoName = "player2") {
-    
-    const players = [
-        {
-            name: playerOneName,
-            mark: "X"
-        },
-        {
-            name: playerTwoName,
-            mark: "O"
+                    markPlayer1.value = "circle";
+                }
+            } 
         }
-    ]
-    
-    // 2.1.1 - Define o jogador Atual
-    let activePlayer = players[0];
 
-    // 2.2.2 - Closure para definir quem começa cada jogada
-    const switchPlayerTurn = () => {
 
-        if (activePlayer === players[0]) {
+        // INSTANCIACAO DAS CLOSURES
+        markPlayer1.addEventListener("change", updateMarks);
+        markPlayer2.addEventListener("change", updateMarks);
+    }
 
-            activePlayer = players[1];
-        
-        } else {
+    // DESBLOQUEIA O BOTÃO DE ENTRADA
+    function checkButton( buttonEnter) {
 
-            activePlayer = players[0];
+        const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
+        const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2"); 
+
+        //  CLOSURE - LÓGICA DE VALIDAÇÃO
+        const validateButton = () => {
+
+            if( regexMessagePlayer1.classList.contains("errorMessageCorrect") && regexMessagePlayer2.classList.contains("errorMessageCorrect")) {
+
+                buttonEnter.removeAttribute("disabled");
+                buttonEnter.classList.remove("none");
+                buttonEnter.classList.add("enter");
+            }
+
+            else {
+
+                buttonEnter.setAttribute("disabled", false);
+                buttonEnter.classList.remove("enter");
+                buttonEnter.classList.add("none");
+            }
         }
     }
 
-    // 2.2.3 - Função para devolver qual é o jogador atual - closure
-    const getActivePlayer = () => activePlayer;
+    // INCIA O JOGO
+    function init() {
 
-    return {players, activePlayer}
-}
+        const buttonEnter = document.getElementById("enter");
 
-// 3 - Regras de jogo
+        // INSTANCIA O CLOSURE
+        const player1Checker = checkPlayerName( "namePlayer1", "regexMessagePlayer1", "enter");
+        const player2Checker = checkPlayerName( "namePlayer2", "regexMessagePlayer2", "enter");
 
-// 3.1 - Regras Gerais de Jogo
-function GameController() {
+        // VALIDAÇÃO DO NOME NO INPUT
+        player1Checker.attachEventListener();
+        player2Checker.attachEventListener();
 
-    // 3.1.1 - Instancar novo tabuleiro
-    const board = GameBoard();
+        //  INSTANCIA O CLOSURE
+        const selectMarksPlayer = selectPlayerMarks("markPlayer1", "markPlayer2");
 
-    // 3.1.2 - Instancia os jogadores
-    const players = GameEntities();
+        // AÇÃO AO CLICAR NO BOTÃO DE ENTRAR
+        buttonEnter.addEventListener("click", () => {
 
-    //3.1.3 - Controlo de cada jogada
-    const roundMark = (position) => {
-        
-        const avalaiblePosition = board.filter
+            // ATRIBUIÇÃO DE NOMES AOS JOGADORES
+            player1Name = player1Checker.getName();
+            player2Name = player2Checker.getName();
+
+            // ATRIBUIÇÃO DAS MARCAS AO JOGADORES
+            selectMarksPlayer.updateMarks().value
+
+            //REMOVER OS EVENTLISTENER DA VALIDAÇÃO DO NOME
+            player1Checker.deleteEventListener();
+            player2Checker.deleteEventListener();
+
+            //REMOVER OS EVENTLISTENER DA VALIDAÇÃO DAS MARCAS
+            removeEventListener()
+           
+            startGame( player1Name, player2Name, player1Mark, player2Mark );
+        });
     }
-    
 
+    // PARTE VISUAL DA RENDERIZAÇÃO DO TABULEIRO
+    function startGame() {
+
+        const board = document.getElementById("gameboard");
+        const leaderboard = document.getElementById("leaderboard");
+        const buttons = document.getElementById("buttons");
+        const formWelcome = document.getElementById("formWelcome");
+        const playerName1 = document.getElementById("playerName1");
+        const playerName2 = document.getElementById("playerName2");
+
+        // RENDERIZA A INFORMAÇÃO NO HTML DO NOME DOS PLAYERS
+        playerName1.textContent = playerName1;
+        playerName2.textContent = playerName2;
+
+        // MOSTRA TABULEIRO, LEADERBOARD E BUTTONS
+        board.classList.remove("none");
+        leaderboard.classList.remove("none");
+        buttons.classList.remove("none");
+        formWelcome.classList.remove("none");
+    }
+
+    return {init};
 }
 
-*/
+// INSTANCIA A FACTORY FUNCTION
+const gameController = createGameController();
+document.addEventListener("DOMContentLoaded", gameController.init());
+
 
 
