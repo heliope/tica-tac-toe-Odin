@@ -127,6 +127,7 @@ function createGameController() {
 
         board.classList.remove("none");
         leaderboard.classList.remove("none");
+        leaderboard.style.display = "flex";
         buttons.classList.remove("none");
 
         formWelcome.classList.add("none");

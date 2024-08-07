@@ -15,7 +15,6 @@ function createGameController() {
         
         const input = document.getElementById(inputId);
         const errorMessage = document.getElementById(errorMessageId);
-        const buttonEnter = document.getElementById(buttonEnterId);
         
         // O NOME DO JOGADOR DEVE TER ENTRE 3 A 15 LETRAS
         const regexInput = /^[\p{L}\p{N}]{3,15}$/u;
@@ -43,8 +42,10 @@ function createGameController() {
                 errorMessage.className = "errorMessageCorrect";
             }
 
-            // CHAMA A FUNÇÃO DE DESBLOQUEAR O BOTÃOD E ENTRAR
-            checkButton(buttonEnter)
+            // INSTANCIA A FUNÇÃO DE DESBLOQUEAR O BOTÃO DE ENTRADA
+            const validatorButton = checkButton(buttonEnterId);
+            
+            validatorButton.validateButton();
         }
 
         // EXECUTA A FUNÇÃO CHECKNAME
@@ -103,18 +104,20 @@ function createGameController() {
             } 
         }
 
-
         // INSTANCIACAO DAS CLOSURES
         markPlayer1.addEventListener("change", updateMarks);
         markPlayer2.addEventListener("change", updateMarks);
+
+        return {markPlayer1, markPlayer2, updateMarks};
     }
 
     // DESBLOQUEIA O BOTÃO DE ENTRADA
-    function checkButton( buttonEnter) {
+    function checkButton( buttonEnterId) {
 
         const regexMessagePlayer1 = document.getElementById("regexMessagePlayer1");
-        const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2"); 
-
+        const regexMessagePlayer2 = document.getElementById("regexMessagePlayer2");
+        const buttonEnter = document.getElementById(buttonEnterId);
+      
         //  CLOSURE - LÓGICA DE VALIDAÇÃO
         const validateButton = () => {
 
@@ -127,11 +130,33 @@ function createGameController() {
 
             else {
 
-                buttonEnter.setAttribute("disabled", false);
+                buttonEnter.setAttribute("disabled", "true");
                 buttonEnter.classList.remove("enter");
                 buttonEnter.classList.add("none");
             }
         }
+
+        return {validateButton};
+    }
+
+    // CRIACAO DO TABULEIRO
+    function createGameboard() {
+
+        // DIMENSÕES DO TABULEIRO
+        const cels = 9;
+        const board = [];
+
+        // CONSTRUÇÃO DO TABULEIRO
+        for (let i = 0; i < cels; i++) {
+
+            board[i] = [];
+        }
+
+        // CLOSURE -RETORNA VARIAVEL BOARD
+        const getGameBoard = () => board
+
+        // RETORNA UM OBJETO
+        return {getGameBoard};
     }
 
     // INCIA O JOGO
@@ -147,7 +172,7 @@ function createGameController() {
         player1Checker.attachEventListener();
         player2Checker.attachEventListener();
 
-        //  INSTANCIA O CLOSURE
+        // INSTANCIA O CLOSURE
         const selectMarksPlayer = selectPlayerMarks("markPlayer1", "markPlayer2");
 
         // AÇÃO AO CLICAR NO BOTÃO DE ENTRAR
@@ -157,15 +182,19 @@ function createGameController() {
             player1Name = player1Checker.getName();
             player2Name = player2Checker.getName();
 
+            console.log(player1Checker.getName());
+
             // ATRIBUIÇÃO DAS MARCAS AO JOGADORES
-            selectMarksPlayer.updateMarks().value
+            player1Mark = document.getElementById("markPlayer1").value;
+            player2Mark = document.getElementById("markPlayer2").value;
 
             //REMOVER OS EVENTLISTENER DA VALIDAÇÃO DO NOME
             player1Checker.deleteEventListener();
             player2Checker.deleteEventListener();
 
             //REMOVER OS EVENTLISTENER DA VALIDAÇÃO DAS MARCAS
-            removeEventListener()
+            selectMarksPlayer.markPlayer1.removeEventListener("change", selectMarksPlayer.updateMarks);
+            selectMarksPlayer.markPlayer2.removeEventListener("change", selectMarksPlayer.updateMarks);
            
             startGame( player1Name, player2Name, player1Mark, player2Mark );
         });
@@ -181,15 +210,26 @@ function createGameController() {
         const playerName1 = document.getElementById("playerName1");
         const playerName2 = document.getElementById("playerName2");
 
+        // NOVA INSTANCIA DA FUNCAO BOARDGAME
+        const boardGame = createGameboard().getGameBoard();
+
+        boardGame.forEach( element => {
+
+            let cels = document.createElement("div");
+            board.appendChild(cels);
+            cels.classList.add("cel");
+        })
+
         // RENDERIZA A INFORMAÇÃO NO HTML DO NOME DOS PLAYERS
-        playerName1.textContent = playerName1;
-        playerName2.textContent = playerName2;
+        playerName1.textContent = player1Name;
+        playerName2.textContent = player2Name;
 
         // MOSTRA TABULEIRO, LEADERBOARD E BUTTONS
         board.classList.remove("none");
         leaderboard.classList.remove("none");
+        leaderboard.style.display = "flex";
         buttons.classList.remove("none");
-        formWelcome.classList.remove("none");
+        formWelcome.classList.add("none");
     }
 
     return {init};
