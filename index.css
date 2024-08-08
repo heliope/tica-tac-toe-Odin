@@ -222,6 +222,7 @@
     background-color: var(--textColor);
     border: 2px solid black;
     height: 120px;
+    font-size: 48px;
 }
 
 #buttons {

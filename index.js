@@ -22,19 +22,19 @@ function Gameboard() {
     const getGameBoard = () => board
 
     // ADICIONA MARK DE UM JOGADOR NO TABULEIRO
-    const placeMark = ( column, row, mark) => {
+    const placeMark = ( row, column, mark) => {
 
         // VERIFICA SE ESTÁ DISPONIVEL
-        if ( board[column][row].getMark() === "") {
+        if ( board[row][column].getMark() === "") {
 
             if ( mark === "circle") {
 
-                board[column][row].addMark("O");
+                board[row][column].addMark("O");
             }
 
             else {
 
-                board[column][row].addMark("X");
+                board[row][column].addMark("X");
             }
 
         }
@@ -215,9 +215,9 @@ function GameController() {
     ]
 
     let activePlayer = players[0].name;
+    
     let activePlayerMark  = players[0].mark;
 
-    console.log(activePlayer);
 
     const switchPlayerTurn = () => {
 
@@ -230,7 +230,7 @@ function GameController() {
         else {
 
             activePlayer = players[0].name;
-            activePlayerMark = players[1].mark;
+            activePlayerMark = players[0].mark;
         }
     }
 
@@ -250,7 +250,7 @@ function GameController() {
 
 function ScreenController() {
 
-    // INSTANICAÇÃO DA TABULEIRO
+    // INSTANCIAÇÃO DA TABULEIRO
     const game = GameController();
     const gameboard = document.getElementById("gameboard");
     const leaderboard = document.getElementById("leaderboard");
@@ -283,6 +283,8 @@ function ScreenController() {
         gameboard.style.display="grid";
         leaderboard.style.display="flex";
         buttons.style.display="flex";
+
+        console.log(GameController().getActivePlayer());
     }
 
     function clickHandlerBoard(e) {
@@ -295,7 +297,7 @@ function ScreenController() {
         const selectCelColumnValue = parseInt(selectCelColumn);
         const selectCelRowValue = parseInt(selectCelRow);
 
-        game.playRound(selectCelColumnValue,selectCelRowValue);
+        game.playRound(selectCelRowValue,selectCelColumnValue);
         updateScreen();
     }
 
@@ -330,145 +332,3 @@ function StartGame() {
 
 document.addEventListener("DOMContentLoaded", StartGame);
 
-
-/*
-
-
-
-    // INICIA O JOGO
-    function init() {
-
-        const buttonEnter = document.getElementById("enter");
-
-        // INSTANCIA O CLOSURE
-        const player1Checker = checkPlayerName( "namePlayer1", "regexMessagePlayer1", "enter");
-        const player2Checker = checkPlayerName( "namePlayer2", "regexMessagePlayer2", "enter");
-
-        // VALIDAÇÃO DO NOME NO INPUT
-        player1Checker.attachEventListener();
-        player2Checker.attachEventListener();
-
-        // INSTANCIA O CLOSURE
-        const selectMarksPlayer = selectPlayerMarks("markPlayer1", "markPlayer2");
-
-        // AÇÃO AO CLICAR NO BOTÃO DE ENTRAR
-        buttonEnter.addEventListener("click", () => {
-
-            // ATRIBUIÇÃO DE NOMES AOS JOGADORES
-            player1Name = player1Checker.getName();
-            player2Name = player2Checker.getName();
-
-            // ATRIBUIÇÃO DAS MARCAS AO JOGADORES
-            player1Mark = document.getElementById("markPlayer1").value;
-            player2Mark = document.getElementById("markPlayer2").value;
-
-            //REMOVER OS EVENTLISTENER DA VALIDAÇÃO DO NOME
-            player1Checker.deleteEventListener();
-            player2Checker.deleteEventListener();
-
-            // REMOVER OS EVENTLISTENER DA VALIDAÇÃO DAS MARCAS
-            selectMarksPlayer.markPlayer1.removeEventListener("change", selectMarksPlayer.updateMarks);
-            selectMarksPlayer.markPlayer2.removeEventListener("change", selectMarksPlayer.updateMarks);
-            
-            // RENDERIZAÇÃO DO TABULEIRO
-            startGame();
-
-            // DISPONIBILIZA O JOGADOR ATUAL
-            logicRound().getActivePlayer;
-            logicRound().getActivePlayerMark;
-        });
-    }
-
-    // PARTE VISUAL DA RENDERIZAÇÃO DO TABULEIRO
-    function startGame() {
-
-        const board = document.getElementById("gameboard");
-        const leaderboard = document.getElementById("leaderboard");
-        const buttons = document.getElementById("buttons");
-        const formWelcome = document.getElementById("formWelcome");
-        const playerName1 = document.getElementById("playerName1");
-        const playerName2 = document.getElementById("playerName2");
-
-        // NOVA INSTANCIA DA FUNCAO BOARDGAME
-        const boardGame = createGameboard().getGameBoard();
-
-        boardGame.forEach( element => {
-
-            let cels = document.createElement("div");
-            board.appendChild(cels);
-            cels.classList.add("cel");
-        })
-
-        // RENDERIZA A INFORMAÇÃO NO HTML DO NOME DOS PLAYERS
-        playerName1.textContent = player1Name;
-        playerName2.textContent = player2Name;
-
-        // MOSTRA TABULEIRO, LEADERBOARD E BUTTONS
-        board.classList.remove("none");
-        leaderboard.classList.remove("none");
-        leaderboard.style.display = "flex";
-        buttons.classList.remove("none");
-        formWelcome.classList.add("none");
-
-        // ADICIONA O EVENTLISTENER DE CLIQUE EM CADA CÉLULA
-        const cels = document.querySelectorAll(".cel");
-
-        cels.forEach( cel => {
-
-            cel.addEventListener("click", clickHandlerBoard, {once: true}); //evento só é disparado uma vez 
-        });
-
-    }
-
-    // LÓGICA DOS ROUNDS
-    function logicRound() {
-
-        let activePlayer = player1Name;
-        let activePlayerMark = player1Mark;
-
-        const switchPlayerTurn = () => {
-            
-            if ( activePlayer === player1Name ) {
-
-                activePlayer = player2Name;
-                activePlayerMark = player2Mark;
-            }
-
-            else {
-
-                activePlayer = player1Name;
-                activePlayerMark = player1Mark;
-            }
-
-        }
-        
-        const getActivePlayer = () => activePlayer;
-        const getActivePlayerMark = () => activePlayerMark;
-
-        return {getActivePlayer, getActivePlayerMark};
-    }
-
-    // CÉLULA PREENCHIDA
-    function clickHandlerBoard () {
-
-        return (e) => {
-
-            const cell = e.target;
-
-            if ( cell.textContent ===  "") {
-
-                cell.textContent = logicRound().getActivePlayer;
-                switchPlayerTurn()
-            }
-        }
-
-    }
-    return {init};
-}
-
-// INSTANCIA A FACTORY FUNCTION
-const gameController = createGameController();
-document.addEventListener("DOMContentLoaded", gameController.init());
-
-
-*/
