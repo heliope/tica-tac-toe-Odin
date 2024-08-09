@@ -206,18 +206,18 @@ function GameController() {
     const players = [
         {
             name: player1Name,
-            mark: player1Mark
+            mark: player1Mark,
         },
         {
             name: player2Name,
-            mark: player2Mark
+            mark: player2Mark,
         }
     ]
 
-    let activePlayer = players[0].name;
-    
-    let activePlayerMark  = players[0].mark;
+    const getPlayers = () => players
 
+    let activePlayer = players[0].name;   
+    let activePlayerMark  = players[0].mark;
 
     const switchPlayerTurn = () => {
 
@@ -228,9 +228,9 @@ function GameController() {
         }
 
         else {
-
             activePlayer = players[0].name;
             activePlayerMark = players[0].mark;
+
         }
     }
 
@@ -240,11 +240,11 @@ function GameController() {
     const playRound = (column, row) => {
 
         board.placeMark(column, row, getActivePlayerMark());
-        switchPlayerTurn();
+
     }
 
 
-    return {getActivePlayer, getActivePlayerMark, playRound, getGameBoard: board.getGameBoard};
+    return {getActivePlayer, getActivePlayerMark, playRound, getGameBoard: board.getGameBoard, getPlayers, switchPlayerTurn};
 
 }
 
@@ -283,29 +283,76 @@ function ScreenController() {
         gameboard.style.display="grid";
         leaderboard.style.display="flex";
         buttons.style.display="flex";
-
-        console.log(GameController().getActivePlayer());
     }
 
-    function clickHandlerBoard(e) {
+    function createClickHandler(updateScreenColorMark) {
 
-        const selectCelColumn = e.target.dataset.column;
-        const selectCelRow = e.target.dataset.row;
-
-        if (!selectCelColumn || !selectCelRow) return;
-
-        const selectCelColumnValue = parseInt(selectCelColumn);
-        const selectCelRowValue = parseInt(selectCelRow);
-
-        game.playRound(selectCelRowValue,selectCelColumnValue);
-        updateScreen();
-    }
-
+        //CLOSURE 
+        function clickHandlerBoard(e) {
+            
+            const selectCelColumn = e.target.dataset.column;
+            const selectCelRow = e.target.dataset.row;
+        
+                if (!selectCelColumn || !selectCelRow) return;
+        
+                const selectCelColumnValue = parseInt(selectCelColumn);
+                const selectCelRowValue = parseInt(selectCelRow);
+                
+                game.playRound(selectCelRowValue,selectCelColumnValue);
     
-    gameboard.addEventListener("click", clickHandlerBoard);
+                updateScreenColorMark(selectCelRowValue, selectCelColumnValue);
+        }
+    
+        return clickHandlerBoard
+    }
+
+    function createUpdateScreenColorMark() {
+
+        const playerColors = {
+            
+            player1: "#121f31",
+            player2: "#154e94"
+        }
+    
+        function updateScreenColorMark(row, column) {
+    
+            const activePlayer = game.getActivePlayer();
+            const players = game.getPlayers();
+            const buttonSelect = document.querySelector(`[data-row='${row}'][data-column='${column}']`);
+            const board = game.getGameBoard();
+
+            if (buttonSelect.textContent !== "") {
+
+                buttonSelect.textContent = board[row][column].getMark();
+                return
+            }
+
+            else  if (activePlayer === players[0].name) {
+
+                color = playerColors.player1;
+            }
+
+            else {
+
+                color = playerColors.player2;
+            }
+
+            if (buttonSelect) {
+
+                buttonSelect.style.color = color;
+                buttonSelect.textContent = board[row][column].getMark();
+                game.switchPlayerTurn();
+            }
+        }
+
+        return updateScreenColorMark;
+    }
+
+    gameboard.addEventListener("click", createClickHandler(createUpdateScreenColorMark()));
 
     updateScreen();
 }
+
 
 function StartGame() {
 
