@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="index.js"></script>
+    <script defer src="indexFinal.js"></script>
     <link rel="stylesheet" href="index.css">
     <title>Tic-Tac-Toe-Game</title>
 </head>
@@ -18,13 +18,11 @@
                     <div id="playerDetails">
                         <div class="playerDetails1">
                             <div class="playerDetails1Aux1">
-                                <label for="name" id="namePlayer1Label">Player1:</label>
-                                <input type="text" id="namePlayer1" minlength="3"  maxlength="15" required>
+                                <input type="text" id="namePlayer1" minlength="3"  maxlength="15" placeholder="Player1" required>
                                 <div id="regexMessagePlayer1" class="none"></div>
                             </div>
                             <div class="playerDetails1Aux2">
-                                <label for="mark" id="markpPlayer1Label">Mark:</label>
-                                <select name="markPlayer1" id="markPlayer1">
+                                <select name="markPlayer1" id="markPlayer1" title="markPlayer1">
                                     <option value="circle">O</option>
                                     <option value="cross">X</option>
                                 </select>
@@ -32,13 +30,11 @@
                         </div>
                         <div class="playerDetails2">
                             <div class="playerDetails2Aux1">
-                                <label for="name" id="namePlayer2Label">Player2:</label>
-                                <input type="text" id="namePlayer2" minlength="3"  maxlength="15" required>
+                                <input type="text" id="namePlayer2" minlength="3"  maxlength="15" placeholder="Player2" required>
                                 <div id="regexMessagePlayer2" class="none"></div>
                             </div>
                             <div class="playerDetails2Aux2">
-                                <label for="mark" id="markpPlayer2Label">Mark:</label>
-                                <select name="markPlayer2" id="markPlayer2">
+                                <select name="markPlayer2" id="markPlayer2" title="markPlayer2">
                                     <option value="cross">X</option>
                                     <option value="circle">O</option>
                                 </select>
