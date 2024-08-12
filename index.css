@@ -257,5 +257,9 @@
     color: var(--textColor);
 }
 
+.buttons-disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
 
 

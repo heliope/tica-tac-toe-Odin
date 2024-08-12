@@ -200,6 +200,8 @@ function GameController() {
     let player2Name = checkPlayerName( "namePlayer2", "regexMessagePlayer2", "enter").getName();
     let player1Mark = selectPlayerMarks("markPlayer1", "markPlayer2").markPlayer1Validate().value;
     let player2Mark = selectPlayerMarks("markPlayer1", "markPlayer2").markPlayer2Validate().value;
+    let player1Pontuation = document.getElementById("resultPlayer1");
+    let player2Pontuation = document.getElementById("resultPlayer2");
 
     const board = Gameboard();
 
@@ -207,10 +209,12 @@ function GameController() {
         {
             name: player1Name,
             mark: player1Mark,
+            pontuation: player1Pontuation
         },
         {
             name: player2Name,
             mark: player2Mark,
+            pontuation: player2Pontuation
         }
     ]
 
@@ -241,11 +245,127 @@ function GameController() {
 
         board.placeMark(column, row, getActivePlayerMark());
 
+        const gameStatus = CheckGameStatus(getActivePlayer(), getActivePlayerMark())(board.getGameBoard());
+        const buttonsGameBoard = document.querySelectorAll(".cel");
+        let player1Pontuation = document.getElementById("resultPlayer1");
+        let player2Pontuation = document.getElementById("resultPlayer2");
+        
+
+        if ( gameStatus.status === "win") {
+
+            console.log(`${gameStatus.player} wins!`);
+            buttonsGameBoard.forEach(button => button.classList.add("buttons-disabled"));
+            const players = GameController().getPlayers();
+
+            console.log(players[0].name);
+
+            if ( gameStatus.player === players[0].name) {
+
+                players[0].pontuation = parseInt(players[0].pontuation.textContent) +1 ;
+
+                player1Pontuation.textContent = players[0].pontuation
+            }
+
+            else if ( gameStatus.player === players[1].name) {
+
+                players[1].pontuation = parseInt(players[1].pontuation.textContent) +1 ;
+
+                player2Pontuation.textContent = players[1].pontuation
+            }
+        }
+
+        if ( gameStatus.status === "tie") {
+
+            console.log("tie!");
+            return; 
+        }
+    }
+    return {getActivePlayer, getActivePlayerMark, playRound, getGameBoard: board.getGameBoard, getPlayers, switchPlayerTurn};
+}
+
+function CheckGameStatus(activePlayer, activePlayerMark) {
+
+    return function(board) {
+
+        // CheckWinner para verificar se existe próxima ronda ou não    
+        const winner = checkWinner(board);
+
+        let markSymbol = '';
+
+        if (winner) {
+
+            if ( activePlayerMark === "circle") {
+
+                markSymbol= 'O';
+            }
+
+            else {
+
+                markSymbol = 'X';
+            }
+
+            return {status: "win", player: activePlayer, mark: activePlayerMark};
+        }
+
+        if (isBoardFull(board)) {
+
+            console.log("It´s a tie");
+            return { status: "tie"};
+        }
+
+        return { status: "continue"};
+    }
+}
+
+
+function checkWinner(board) {
+
+    const size = board.length;
+
+    for ( let i = 0; i < size; i++ ) {
+
+        // VENCEDOR EM LINHA
+        if ( board[i][0] !== "" && board[i][0].getMark() === board[i][1].getMark() && board[i][1].getMark() ===  board[i][2].getMark() ) {
+
+            console.log(board[i][0].getMark());
+            return board[i][0].getMark();
+
+        }
+
+        // VENCEDOR EM COLUNA
+
+        if ( board[0][i] !== "" && board[0][i].getMark() === board[1][i].getMark() && board[1][i].getMark() ===  board[2][i].getMark() ) {
+
+            return board[0][i].getMark();;
+        }
+
     }
 
+    // VENCEDOR NA DIAGONAL
 
-    return {getActivePlayer, getActivePlayerMark, playRound, getGameBoard: board.getGameBoard, getPlayers, switchPlayerTurn};
+    if ( board[0][0].getMark() !== "" &&  board[0][0].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][2].getMark()) {
 
+        return board[0][0].getMark();
+    }
+
+    
+    if ( board[0][2].getMark() !== "" &&  board[0][2].getMark() === board[1][1].getMark() && board[1][1].getMark() === board[2][0].getMark()) {
+
+        return board[0][2]. getMark();
+    }
+
+    return null; // SEM VENCEDOR EMPATE
+}
+
+function isBoardFull(board) {
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[row].length; col++) {
+            if (board[row][col].getMark() === '') {
+                return false; // Ainda há células vazias, o jogo não está empatado
+            }
+        }
+    }
+    return true; // Todas as células estão preenchidas, o jogo está empatado
 }
 
 function ScreenController() {
@@ -377,5 +497,40 @@ function StartGame() {
 }
 
 
-document.addEventListener("DOMContentLoaded", StartGame);
+function NewRound() {
+
+    const newRoundButton = document.getElementById("newRoundButton");
+
+
+        if( newRoundButton) {
+
+            newRoundButton.addEventListener("click", () => {
+
+                const screenController = ScreenController();
+                const gameController = GameController();
+
+
+                const playerActive = gameController.getActivePlayer;
+                const playerMark = gameController.getActivePlayerMark;
+                const board = Gameboard();
+
+
+                const gameStatus = CheckGameStatus(playerActive, playerMark, (board.getGameBoard()));
+
+                gameStatus.status ="";
+
+                ScreenController()
+
+                console.log(gameStatus.status="")
+            });
+        }
+    
+
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    StartGame();
+    NewRound();
+});
 
