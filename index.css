@@ -25,6 +25,23 @@
     display: none;
 }
 
+.errorMessageCorrect {
+    background-color: var(--correctColor);
+    font-size: 16px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+
+.errorMessageIncorrect {
+    background-color: var(--incorrectColor);
+    font-size: 16px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+} 
+
 /* FORMATAÇÃO FORMULÁRIO DE ENTRADA */
 
 #formWelcome {
@@ -33,7 +50,7 @@
     left: 50%;
     transform: translate(-50%,-25%);
     width: 90%;
-    max-width: 750px;
+    max-width: 450px;
 }
 
 #formWelcome form fieldset {
@@ -64,7 +81,6 @@
     padding: 5px;
     margin-top: 15px;
     margin-bottom: 15px;
-    margin-left: 15px;
     font-size: 22px;
     width: 92%;
 }
@@ -117,6 +133,10 @@
     margin-bottom: 20px;
 }
 
+#formWelcome form fieldset div#playerDetails div.playerDetails1Aux1 div#regexMessagePlayer1{
+    width: 92%;
+}
+
 #formWelcome form fieldset div#playerDetails div.playerDetails1Aux2{
     display: flex;
     flex-direction: column;
@@ -125,6 +145,10 @@
 
 #formWelcome form fieldset div#playerDetails div.playerDetails2Aux1{
     margin-bottom: 20px;
+}
+
+#formWelcome form fieldset div#playerDetails div.playerDetails2Aux1 div#regexMessagePlayer2{
+    width: 92%;
 }
 
 #formWelcome form fieldset div#playerDetails div.playerDetails2Aux2{
@@ -163,22 +187,30 @@
     font-size: 20px;
 }
 
+/* GAMEBOARD */
 
+#gameboard {
+   display: none;
+    grid-template-columns: 0.5fr 0.5fr 0.5fr;
+    width: 90%;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    margin-bottom: 70px;
+    gap: 5px;
+}
 
+#gameboard button.cel {
+    background-color: var(--textColor);
+    border: 2px solid black;
+    height: 120px;
+    font-size: 48px;
+}
 
 
 /*
-.errorMessageCorrect {
-    background-color: var(--correctColor);
-    font-size: 16px;
-    padding-left: 15px;
-}
 
-.errorMessageIncorrect {
-    background-color: var(--incorrecColor);
-    font-size: 16px;
-    padding-left: 15px;
-} 
 
 
 
@@ -258,23 +290,9 @@
     font-weight: bolder;
 }
 
-#gameboard {
-    display: none;
-    grid-template-columns: 0.5fr 0.5fr 0.5fr;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 100px;
-    margin-bottom: 70px;
-    gap: 5px;
-}
 
-#gameboard button.cel {
-    background-color: var(--textColor);
-    border: 2px solid black;
-    height: 120px;
-    font-size: 48px;
-}
+
+
 
 #buttons {
     position: absolute;
