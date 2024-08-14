@@ -25,19 +25,21 @@ function Gameboard() {
 }
 
 // FACTORY FUNCTION -> CRIAÇÃO DOS JOGADORES
-function Player( name, mark) {
+function PlayerManager( name, mark) {
 
     const players = [];
 
     const addPlayer = (name, mark) => {
 
-        players.push( name, mark)
-        
+        players.push({name, mark});
     }
+
+    const getPlayers = () => players;
     
-    return {addPlayer}
+    return {addPlayer, getPlayers};
 }
 
+// VERIFICAÇÃO DE NOMES
 function CheckPlayerName( inputId, errorMessageId, buttonEnterId) {
 
     const input = document.getElementById(inputId);
@@ -88,6 +90,52 @@ function CheckPlayerName( inputId, errorMessageId, buttonEnterId) {
     return {checkPlayerNameEventAdd, checkPlayerNameEventRemove};
 }
 
+// VERIFICACAO DAS MARCAS DOS JOGADORES
+function SelectMarks(markPlayer1Id, markPlayer2Id) {
+
+    const mark1Player = document.getElementById(markPlayer1Id);
+    const mark2Player = document.getElementById(markPlayer2Id);
+
+    // CLOSURE - GUARDA A LÓGICA DE VERIFICAÇÃO DAS MARCAS DOS PLAYERS
+    const updateMarks = (e) => {
+
+        if ( e.target === mark1Player) {
+
+            if ( mark1Player.value === "circle") {
+
+                mark2Player.value = "cross";
+            }
+
+            else if ( mark1Player.value === "cross") {
+
+                mark2Player.value = "circle";
+            }
+        }
+
+        else if (e.target === mark2Player) {
+
+            if ( mark2Player.value === "circle" ) {
+
+                mark1Player.value = "cross"
+            }
+
+            else if ( mark2Player.value === "cross") {
+
+                mark1Player.value = "circle";
+            }
+        }
+    }
+
+    const markPlayer1Validate = () => mark1Player;
+    const markPlayer2Validate = () => mark2Player;
+
+    //INSTANCIAÇÃO DAS CLOSURES
+    mark1Player.addEventListener("change",updateMarks);
+    mark2Player.addEventListener("change",updateMarks);
+
+    return {markPlayer1Validate, markPlayer2Validate, updateMarks};
+}
+
 // DESBLOQUEAR O BOTÃO DE ENTRADA
 function UnlockButtonEnter(buttonEnterId) {
 
@@ -122,7 +170,10 @@ function UnlockButtonEnter(buttonEnterId) {
 function StartGame() {
 
     const startButton = document.getElementById("enter");
-    const formWelcome = document.getElementById("formWelcome")
+    const formWelcome = document.getElementById("formWelcome");
+
+    //INSTANCIAÇÃO ADIÇÃO DE JOGADORES
+    const playerManager = PlayerManager(); 
 
     // ATIVAÇÃO DA VERIFICAÇÃO DOS NOMES
     const player1Checker = CheckPlayerName("namePlayer1","regexMessagePlayer1","enter");
@@ -130,6 +181,8 @@ function StartGame() {
 
     player1Checker.checkPlayerNameEventAdd();
     player2Checker.checkPlayerNameEventAdd();
+
+    SelectMarks("markPlayer1", "markPlayer2");
 
     startButton.addEventListener("click", () => {
 
@@ -147,6 +200,7 @@ function ScreenControllerGameBoard() {
     const gameboard = Gameboard();
     const board = gameboard.getGameboard();
     const gameBoardHtml = document.getElementById("gameboard");
+    const buttons = document.getElementById("buttons");
 
     // VERIFICA SE O TABULEIRO JÁ EXISTE E REMOVE TODOS OS FILHOS
     while ( gameBoardHtml.firstChild) {
@@ -166,6 +220,7 @@ function ScreenControllerGameBoard() {
         }
 
         gameBoardHtml.style.display="grid";
+        buttons.style.display="flex";
     }
 }
 
@@ -173,10 +228,21 @@ function ScreenControllerPlayers() {
 
     // INSTANCIAÇÃO DOS JOGADORES
     const leaderboard = document.getElementById("leaderboard");
-    const player1 = document.getElementById("playerName1");
-    const player2 = document.getElementById("playerName1");
-    const players = Player(player1.textContent,"xx").addPlayer();
+    const player1 = document.getElementById("namePlayer1");
+    const player2 = document.getElementById("namePlayer2");
+    const player1Html = document.getElementById("playerName1");
+    const player2Html = document.getElementById("playerName2");  
+    // VERIFICAÇÃO DAS MARCAS
+    const player1Mark = SelectMarks("markPlayer1", "markPlayer2").markPlayer1Validate().value;
+    const player2Mark = SelectMarks("markPlayer1", "markPlayer2").markPlayer2Validate().value;
 
-    console.log(players);
+    // ADICIONA JOGADOR GERENCIADO
+    player1Html.textContent = player1.value;
+    player2Html.textContent = player2.value;
+    
+    // INSTANCIAÇÃO ADIÇÃO DE JOGADORES
+    leaderboard.style.display ="flex";
+
+
 }
 document.addEventListener("DOMContentLoaded",StartGame);

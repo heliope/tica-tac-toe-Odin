@@ -196,7 +196,7 @@
     max-width: 750px;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 100px;
+    padding-top: 10%;
     margin-bottom: 70px;
     gap: 5px;
 }
@@ -207,6 +207,90 @@
     height: 120px;
     font-size: 48px;
 }
+
+#leaderboard{
+    display: none;
+    flex-direction: row;
+    color: var(--textColor);
+    font-size: 26px;
+}
+
+.playerOne {
+    width: 50%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: var(--playerOneColor);
+    padding: 30px;
+}
+
+.playerTwo {
+    width: 50%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: var(--playerTwoColor);
+    padding: 30px;
+}
+
+.playerName {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.playerOne .result {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.playerTwo .result {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.result {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+#buttons {
+    position: absolute;
+    bottom: 0;
+    background-color: var(--buttonColor);
+    height: 30%;
+    max-height: 90px;
+    width: 100vw;
+    justify-content: center;
+}
+
+#buttons div.buttonsAux {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+#buttons div.buttonsAux button {
+    width: 120px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+    text-transform: uppercase;
+    background-color: var(--textColor);
+}
+
+#buttons div.buttonsAux button:hover {
+    background-color: var(--playerOneColor);
+    color: var(--textColor);
+}
+
+.buttons-disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
 
 
 /*
@@ -245,90 +329,29 @@
 
 
 
-#leaderboard{
-    display: none;
-    flex-direction: row;
-    color: var(--textColor);
-    font-size: 26px;
-}
-
-.playerOne {
-    width: 50%;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    background-color: var(--playerOneColor);
-    padding: 30px;
-}
-
-.playerTwo {
-    width: 50%;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    background-color: var(--playerTwoColor);
-    padding: 30px;
-}
-
-.playerName {
-    font-size: larger;
-    font-weight: bolder;
-}
-
-.playerOne .result {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.playerTwo .result {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.result {
-    font-size: 30px;
-    font-weight: bolder;
-}
 
 
 
 
 
-#buttons {
-    position: absolute;
-    bottom: 0;
-    background-color: var(--buttonColor);
-    width: 100vw;
-    height: 12vh;
-    justify-content: center;
-}
 
-#buttons div.buttonsAux {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
 
-#buttons div.buttonsAux button {
-    width: 150px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 15px;
-    text-transform: uppercase;
-    background-color: var(--textColor);
-}
 
-#buttons div.buttonsAux button:hover {
-    background-color: var(--playerOneColor);
-    color: var(--textColor);
-}
 
-.buttons-disabled {
-    pointer-events: none;
-    opacity: 0.2;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
