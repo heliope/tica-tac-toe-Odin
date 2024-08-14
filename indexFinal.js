@@ -20,7 +20,7 @@ function Gameboard() {
 
     // CLOSURE - VARIÁVEL PRIVADA
     const getGameboard = () => board;
-    
+
     return {getGameboard}
 }
 
@@ -34,8 +34,7 @@ function Player( name, mark) {
         players.push( name, mark)
         
     }
-
-
+    
     return {addPlayer}
 }
 
@@ -176,8 +175,8 @@ function ScreenControllerPlayers() {
     const leaderboard = document.getElementById("leaderboard");
     const player1 = document.getElementById("playerName1");
     const player2 = document.getElementById("playerName1");
-    const players = Player(player1.textContent,"xx");
+    const players = Player(player1.textContent,"xx").addPlayer();
 
-    console.log(player1.textContent);
+    console.log(players);
 }
 document.addEventListener("DOMContentLoaded",StartGame);
