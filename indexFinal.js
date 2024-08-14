@@ -20,36 +20,23 @@ function Gameboard() {
 
     // CLOSURE - VARIÁVEL PRIVADA
     const getGameboard = () => board;
-
-    console.log(board);
-
+    
     return {getGameboard}
 }
 
 // FACTORY FUNCTION -> CRIAÇÃO DOS JOGADORES
 function Player( name, mark) {
 
-    let hasWon = false;
-    let isActive = false;
+    const players = [];
 
-    const players = [
-        {
-            name:name,
-            mark: mark,
-            hasWon: () => hasWon,
-            isActive: () => isActive,
-            setActive: (active) => {
-                isActive = active
-            },
-            setWon: () => {
-                hasWon = true;
-            }
-        }
-    ]
-    
-    const getPlayers = () => players;
+    const addPlayer = (name, mark) => {
 
-    return {getPlayers}
+        players.push( name, mark)
+        
+    }
+
+
+    return {addPlayer}
 }
 
 function CheckPlayerName( inputId, errorMessageId, buttonEnterId) {
@@ -81,7 +68,6 @@ function CheckPlayerName( inputId, errorMessageId, buttonEnterId) {
 
             errorMessage.textContent = "Correct Names! Good Luck!";
             errorMessage.className = "errorMessageCorrect";
-            Player(input.value, "teste");
         }
 
         const validatonButton = UnlockButtonEnter(buttonEnterId);
@@ -151,8 +137,8 @@ function StartGame() {
         player1Checker.checkPlayerNameEventRemove();
         player2Checker.checkPlayerNameEventRemove();
         formWelcome.style.display="none";
-        ScreenControllerPlayers();
         ScreenControllerGameBoard();
+        ScreenControllerPlayers();
     })
 }
 
@@ -188,13 +174,10 @@ function ScreenControllerPlayers() {
 
     // INSTANCIAÇÃO DOS JOGADORES
     const leaderboard = document.getElementById("leaderboard");
-    const players = Player().getPlayers();
     const player1 = document.getElementById("playerName1");
     const player2 = document.getElementById("playerName1");
+    const players = Player(player1.textContent,"xx");
 
-console.log(players);
-   player1.textContent = players[0].name;
-   player2.textContent = players[1].name;    
+    console.log(player1.textContent);
 }
-
 document.addEventListener("DOMContentLoaded",StartGame);
